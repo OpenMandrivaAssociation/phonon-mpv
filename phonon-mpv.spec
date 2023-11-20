@@ -39,6 +39,7 @@ BuildRequires:	cmake(Qt6GuiTools)
 BuildRequires:	cmake(Qt6DBusTools)
 BuildRequires:	cmake(Qt6WidgetsTools)
 BuildRequires:	cmake(Qt6LinguistTools)
+BuildRequires:	cmake(Qt6OpenGLWidgets)
 %endif
 Provides:	phonon-backend
 Suggests:	%{name}-translations
