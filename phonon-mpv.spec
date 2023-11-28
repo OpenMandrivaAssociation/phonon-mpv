@@ -2,7 +2,7 @@
 %bcond_without qt5
 %bcond_without qt6
 
-%define git 20231120
+%define git 20231128
 
 Summary:	Phonon MPV Backend
 Name:		phonon-mpv
@@ -17,7 +17,6 @@ Source0:	https://github.com/OpenProgger/phonon-mpv/archive/refs/heads/master.tar
 Source0:	http://download.kde.org/stable/phonon/phonon-backend-mpv/%{version}/phonon-backend-mpv-%{version}.tar.xz
 %endif
 Patch0:		phonon-mpv-qt6.patch
-Patch1:		phonon-mpv-fix-crash-on-end.patch
 %if %{with qt4}
 BuildRequires:	automoc4
 BuildRequires:	pkgconfig(phonon)
