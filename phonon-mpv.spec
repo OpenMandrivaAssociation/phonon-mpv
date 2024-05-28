@@ -2,12 +2,12 @@
 %bcond_without qt5
 %bcond_without qt6
 
-%define git 20231128
+%define git 20240528
 
 Summary:	Phonon MPV Backend
 Name:		phonon-mpv
 Version:	0.0.8
-Release:	%{?git:0.%{git}.}3
+Release:	%{?git:0.%{git}.}1
 License:	GPLv2+
 Group:		Video
 Url:		https://github.com/OpenProgger/phonon-mpv
@@ -16,7 +16,6 @@ Source0:	https://github.com/OpenProgger/phonon-mpv/archive/refs/heads/master.tar
 %else
 Source0:	http://download.kde.org/stable/phonon/phonon-backend-mpv/%{version}/phonon-backend-mpv-%{version}.tar.xz
 %endif
-Patch0:		phonon-mpv-qt6.patch
 %if %{with qt4}
 BuildRequires:	automoc4
 BuildRequires:	pkgconfig(phonon)
@@ -38,6 +37,7 @@ BuildRequires:	cmake(Qt6GuiTools)
 BuildRequires:	cmake(Qt6DBusTools)
 BuildRequires:	cmake(Qt6WidgetsTools)
 BuildRequires:	cmake(Qt6LinguistTools)
+BuildRequires:	cmake(Qt6OpenGL)
 BuildRequires:	cmake(Qt6OpenGLWidgets)
 %endif
 Provides:	phonon-backend
@@ -75,7 +75,7 @@ Suggests:	%{name}-translations
 Phonon4Qt5 MPV Backend.
 
 %files -n phonon4qt5-mpv
-%{_libdir}/qt5/plugins/phonon4qt5_backend/phonon_mpv.so
+%{_libdir}/qt5/plugins/phonon4qt5_backend/phonon_mpv_qt5.so
 
 %package -n phonon4qt6-mpv
 Summary:	Phonon MPV Backend
@@ -87,7 +87,7 @@ Suggests:	%{name}-translations
 Phonon4Qt6 MPV Backend.
 
 %files -n phonon4qt6-mpv
-%{_qtdir}/plugins/phonon4qt6_backend/phonon_mpv.so
+%{_qtdir}/plugins/phonon4qt6_backend/phonon_mpv_qt6.so
 
 #----------------------------------------------------------------------------
 
@@ -106,6 +106,8 @@ cd ..
 # so let's make sure the Qt5 build uses the default name
 export CMAKE_BUILD_DIR=build
 %cmake_kde5 -DPHONON_BUILD_PHONON4QT5:BOOL=ON \
+	-DPHONON_BUILD_QT5:BOOL=ON \
+	-DPHONON_BUILD_QT6:BOOL=OFF \
 	-DQT_QMAKE_EXECUTABLE=%{_libdir}/qt5/bin/qmake
 cd ..
 %endif
@@ -113,6 +115,8 @@ cd ..
 %if %{with qt6}
 export CMAKE_BUILD_DIR=build-qt6
 %cmake -DQT_MAJOR_VERSION=6 \
+	-DPHONON_BUILD_QT5:BOOL=OFF \
+	-DPHONON_BUILD_QT6:BOOL=ON \
 	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON \
 	-G Ninja
 cd ..
