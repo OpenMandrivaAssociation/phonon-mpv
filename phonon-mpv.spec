@@ -6,8 +6,8 @@
 
 Summary:	Phonon MPV Backend
 Name:		phonon-mpv
-Version:	0.0.8
-Release:	%{?git:0.%{git}.}2
+Version:	0.1.0
+Release:	%{?git:0.%{git}.}1
 License:	GPLv2+
 Group:		Video
 Url:		https://github.com/OpenProgger/phonon-mpv
